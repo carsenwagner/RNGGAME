@@ -8,8 +8,8 @@ local ServerScriptService = game:GetService("ServerScriptService")
 local InventoryService = require(ServerScriptService.Server.Services.InventoryServices)
 
 -- Events
-local AddItemEvent: RemoteEvent = ReplicatedStorage.Remotes.Events.Inventory.AddItem
-local UpdateInventoryEvent: RemoteEvent = ReplicatedStorage.Remotes.Events.Inventory.UpdateInventory
+local AddItemEvent: RemoteEvent = ReplicatedStorage.Remotes.Inventory.Events.AddItem
+local UpdateInventoryEvent: RemoteEvent = ReplicatedStorage.Remotes.Inventory.Events.UpdateInventory
 
 -- Logic
 AddItemEvent.OnServerEvent:Connect(function(player: Player, itemName: string, amount: number?)

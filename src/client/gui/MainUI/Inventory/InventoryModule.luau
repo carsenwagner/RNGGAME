@@ -78,7 +78,6 @@ function InventoryModule:UpdateInventory(inventoryData: { [string]: number })
 			self:AddItem(itemName, count)
 		end
 	end
-	print(self.slots)
 end
 
 return InventoryModule
