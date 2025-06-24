@@ -15,7 +15,7 @@ local inventoryUi = InventoryModule.new(
 )
 
 -- Events
-local UpdateInventoryEvent: RemoteEvent = ReplicatedStorage.Remotes.Events.Inventory.UpdateInventory
+local UpdateInventoryEvent: RemoteEvent = ReplicatedStorage.Remotes.Inventory.Events.ServerToClient.UpdateInventory
 
 -- Logic
 UpdateInventoryEvent.OnClientEvent:Connect(function(data: { [string]: number })

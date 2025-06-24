@@ -13,8 +13,8 @@ local removeBtn =
 	GetDescendant(player, { "PlayerGui", "MainUI", "Inventory", "InventoryFrame", "RemoveBtn" }) :: TextButton
 
 -- Events
-local AddItemEvent: RemoteEvent = ReplicatedStorage.Remotes.Inventory.Events.AddItem
-local RemoveItemEvent: RemoteEvent = ReplicatedStorage.Remotes.Inventory.Events.RemoveItem
+local AddItemEvent: RemoteEvent = ReplicatedStorage.Remotes.Inventory.Events.ClientToServer.AddItem
+local RemoveItemEvent: RemoteEvent = ReplicatedStorage.Remotes.Inventory.Events.ClientToServer.RemoveItem
 
 -- Logic
 addBtn.MouseButton1Click:Connect(function()
