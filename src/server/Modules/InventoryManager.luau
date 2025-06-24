@@ -1,19 +1,22 @@
 --!strict
 
+-- Logic
 local InventoryManager = {}
 InventoryManager.__index = InventoryManager
 
 export type InventoryManager = {
 	items: { [string]: number },
+	player: Player,
 	AddItem: (self: InventoryManager, item: string, amount: number?) -> (),
 	RemoveItem: (self: InventoryManager, item: string, amount: number?) -> (),
 	GetItemCount: (self: InventoryManager, item: string) -> number,
 	GetAllItems: (self: InventoryManager) -> { [string]: number },
 }
 
-function InventoryManager.new(): InventoryManager
+function InventoryManager.new(player: Player): InventoryManager
 	local self = setmetatable({
 		items = {},
+		player = player,
 	}, InventoryManager) :: any
 	return self
 end
