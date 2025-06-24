@@ -1,20 +1,26 @@
 --!strict
 
-local GetDescendant = require(game.ReplicatedStorage.Shared.Utils.GetDescendant)
+-- Services
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+-- Modules
+local GetDescendant = require(ReplicatedStorage.Shared.Utils.GetDescendant)
+
+-- Local Variables
 local player = game.Players.LocalPlayer :: Player
-local InventoryModule = require(script.Parent.InventoryModule) :: any
 local addBtn = GetDescendant(player, { "PlayerGui", "MainUI", "Inventory", "InventoryFrame", "AddBtn" }) :: TextButton
 local removeBtn =
 	GetDescendant(player, { "PlayerGui", "MainUI", "Inventory", "InventoryFrame", "RemoveBtn" }) :: TextButton
-local inventory =
-	InventoryModule.new(player, GetDescendant(player, { "PlayerGui", "MainUI", "Inventory", "InventoryFrame" }))
 
+-- Events
+local AddItemEvent: RemoteEvent = ReplicatedStorage.Remotes.Events.Inventory.AddItem
+local RemoveItemEvent: RemoteEvent = ReplicatedStorage.Remotes.Events.Inventory.RemoveItem
+
+-- Logic
 addBtn.MouseButton1Click:Connect(function()
-	inventory:AddItem("sword")
+	AddItemEvent:FireServer("Sword", 1)
 end)
 
 removeBtn.MouseButton1Click:Connect(function()
-	local result = inventory:RemoveItem("sword")
-	print(result)
+	RemoveItemEvent:FireServer("Sword", 1)
 end)
