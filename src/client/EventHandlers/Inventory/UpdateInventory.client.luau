@@ -14,7 +14,7 @@ local inventoryUi = InventoryModule.new(
 	GetDescendant(player, { "PlayerGui", "MainUI", "Inventory", "InventoryFrame", "SlotsFrame" }) :: Frame
 )
 
--- Events
+-- Remote Events
 local UpdateInventoryEvent: RemoteEvent = ReplicatedStorage.Remotes.Inventory.Events.ServerToClient.UpdateInventory
 
 -- Logic

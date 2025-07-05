@@ -21,8 +21,9 @@ export type InventoryModule = {
 	slots: { [string]: InventorySlot },
 	player: Player,
 
-	AddItem: (self: InventoryModule, itemName: string) -> (),
-	RemoveItem: (self: InventoryModule, itemName: string) -> (),
+	AddItem: (self: InventoryModule, itemName: string, count: number?) -> (),
+	RemoveItem: (self: InventoryModule, itemName: string, count: number?) -> (),
+	DeleteSlot: (self: InventoryModule, itemName: string) -> (),
 	UpdateInventory: (self: InventoryModule, inventoryData: { [string]: number }) -> (),
 }
 
@@ -62,8 +63,16 @@ function InventoryModule:AddItem(itemName: string, count: number?)
 	end
 end
 
-function InventoryModule:RemoveItem(itemName: string)
-	local slot = self.slots[itemName]
+function InventoryModule:RemoveItem(itemName: string, count: number?)
+	local protectedCount = count or 1
+	local slot: InventorySlot = self.slots[itemName]
+	if slot then
+		slot.Amount.Value = protectedCount
+	end
+end
+
+function InventoryModule:DeleteSlot(itemName: string)
+	local slot: InventorySlot = self.slots[itemName]
 	if slot then
 		slot.Frame:Destroy()
 		self.slots[itemName] = nil
@@ -72,10 +81,19 @@ end
 
 function InventoryModule:UpdateInventory(inventoryData: { [string]: number })
 	for itemName, count in pairs(inventoryData) do
-		if count == 0 then
-			self:RemoveItem(itemName)
-		else
+		if not next(self.slots) or self.slots[itemName].Amount.value < count then 
 			self:AddItem(itemName, count)
+			continue 
+		end
+
+		if count == 0 then
+			self:DeleteSlot(itemName) 
+			continue
+		end
+
+		if self.slots[itemName].Amount.Value > count then
+			self:RemoveItem(itemName, count)
+			continue
 		end
 	end
 end

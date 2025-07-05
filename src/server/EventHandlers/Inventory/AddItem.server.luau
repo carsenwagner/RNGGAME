@@ -19,7 +19,7 @@ AddItemEvent.OnServerEvent:Connect(function(player: Player, itemName: string, am
 	if not inventory then
 		return
 	end
-
+	
 	if typeof(itemName) ~= "string" or typeof(amount) ~= "number" then
 		return
 	end
